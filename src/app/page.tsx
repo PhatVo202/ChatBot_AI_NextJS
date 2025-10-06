@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import ChatArea from "@/components/chat-area";
+import Sidebar from "@/components/sidebar";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center ">
-      <Button>Click me</Button>
-    </main>
+    <div className="flex h-screen">
+      <Sidebar />
+      <ChatArea />
+    </div>
   );
 }
