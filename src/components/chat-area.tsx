@@ -5,7 +5,7 @@ import ChatInput from './chat-input'
 
 export default function ChatArea() {
     return (
-        <main className="flex flex-col flex-1">
+        <main className="flex flex-col flex-1 ">
             <Header />
             <ChatMessages />
             <ChatInput />
