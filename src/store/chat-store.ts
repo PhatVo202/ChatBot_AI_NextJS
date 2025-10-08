@@ -16,7 +16,7 @@ export type Chat = {
 
 export type ChatState = {
   chats: Chat[];
-  addChat: (content: string) => void;
+  addChat: (content: string, role: MessageRole) => void;
 
   activeChatId: string | null;
   createChat: () => void;
@@ -28,28 +28,41 @@ const id = () => Math.random().toString(36).slice(2, 10);
 export const useChatStore = create<ChatState>((set, get) => ({
   chats: [],
 
-  addChat: (content: string) => {
+  addChat: (content: string, role: MessageRole) => {
     const { chats, activeChatId } = get();
-    if (!activeChatId) return;
+    if (!activeChatId) {
+      const newChatId = id();
+      const newChat: Chat = {
+        id: newChatId,
+        title: content.slice(0, 20) || "New Chat",
+        message: [
+          {
+            id: id(),
+            role,
+            content,
+          },
+        ],
+      };
+
+      set({
+        chats: [newChat, ...chats],
+        activeChatId: newChatId,
+      });
+      return;
+    }
 
     const updateChat = chats.map((chat) => {
       if (chat.id !== activeChatId) return chat;
 
-      const userMessage: Message = {
+      const message: Message = {
         id: id(),
-        role: "user",
+        role,
         content,
-      };
-
-      const botMessage: Message = {
-        id: id(),
-        role: "bot",
-        content: `You said: "${content}" (gemini will reply later`,
       };
 
       return {
         ...chat,
-        message: [...chat.message, userMessage, botMessage],
+        message: [...chat.message, message],
         title: chat.message.length === 0 ? content : chat.title,
       };
     });

@@ -14,7 +14,11 @@ export default function ChatInput() {
         if (!text) return
 
         //add store
-        addChat(value)
+        addChat(value, 'user')
+        setTimeout(() => {
+            addChat(`You said: "${value}" (gemini will reply later`, 'bot')
+        }, 1000)
+
 
         setValue("")
     }
