@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
 import { Button } from './ui/button'
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader } from './ui/sidebar'
-import { MessageSquare, Plus } from 'lucide-react'
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader } from './ui/sidebar'
+import { CircleUser, MessageSquare, Plus } from 'lucide-react'
 import { useChatStore } from '@/store/chat-store'
 
 export default function ChatSidebar() {
@@ -37,6 +37,13 @@ export default function ChatSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
+
+            <SidebarFooter className='flex-row items-start bg-white hover:bg-gray-600 hover:text-white hover:transition-all hover:ease-in'><CircleUser size={30} />
+                <div>
+                    <div>Phat Vo</div>
+                    <div>free</div>
+                </div>
+            </SidebarFooter>
         </Sidebar>
 
     )
