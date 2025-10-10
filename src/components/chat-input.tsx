@@ -16,12 +16,14 @@ export default function ChatInput() {
         const text = value.trim()
         if (!text) return
 
+        console.log({ text: text })
+
         //add store
         addChat(value, 'user')
         setValue("")
         setIsLoading(true)
         //add store chat gemini
-        const res = await fetch('api/chat', {
+        const res = await fetch('/api/chat', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ content: text })
