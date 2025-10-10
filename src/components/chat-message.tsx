@@ -1,6 +1,8 @@
-
+'use client'
 import { cn } from '@/lib/utils';
 import React from 'react'
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type TChatMessageProps = {
     role: "user" | "bot";
@@ -15,7 +17,13 @@ export default function ChatMessage({ role, children }: TChatMessageProps) {
     const bubbleClasses = cn("rounded-4xl px-4 py-2", isUser ? "bg-gray-700 text-white" : "bg-gray-200 text-gray-800")
     return (
         <div className={containerClasses}>
-            <div className={bubbleClasses}>{children}</div>
+            <div className={bubbleClasses}>{isUser ? (
+                children
+            ) : (
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {String(children)}
+                </ReactMarkdown>
+            )}</div>
         </div>
     )
 }
